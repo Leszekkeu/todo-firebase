@@ -1,0 +1,141 @@
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script defer src="app.js"></script>
+</head>
+<body>
+    <div id="first">
+        <div class="menu z-depth-4">
+            <h1>ToDo App</h1>
+        </div>
+        <div class="general">
+            <a class="waves-effect waves-light btn" id="show-login-btn">Sign In</a>
+            <!-- login modal -->
+            <div id="login" class="modal login">
+                <div class="modal-content">
+                    <h2>Login</h2>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="email-login" type="email" class="validate">
+                            <label for="email-login">Your E-Mail</label>
+                            <span class="helper-text" data-error="wrong" data-success="right"></span>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password-login" type="password" class="validate">
+                            <label for="password-login">Your Password</label>
+                            <span class="helper-text" data-error="wrong" data-success="right"></span>
+                        </div>
+                    </div>
+                    <p id="login-err" class="error"></p>
+                </div>
+                <div class="modal-footer">
+                    <a id="show-register-btn" href="#" class="waves-effect waves-green btn-flat"><b>Register</b></a>
+                    <a id="login-btn" href="#" class="waves-effect waves-green btn-flat"><b>Login</b></a>
+                </div>
+            </div>
+            <!-- register modal -->
+            <div id="register" class="modal register">
+                <div class="modal-content">
+                    <h2>Register</h2>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="email-register" type="email" class="validate">
+                            <label for="email-register">Your E-Mail</label>
+                            <span class="helper-text" data-error="wrong" data-success="right"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password-register" type="password" class="validate">
+                            <label for="password-register">Your Password</label>
+                            <span class="helper-text" data-error="wrong" data-success="right"></span>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password2-register" type="password" class="validate">
+                            <label for="password2-register">Your Password</label>
+                            <span class="helper-text" data-error="wrong" data-success="right"></span>
+                        </div>
+                    </div>
+                    <p id="register-err" class="error"></p>
+                </div>
+                <div class="modal-footer">
+                    <a id="back-login-btn" href="#" class="waves-effect waves-green btn-flat"><b>Back</b></a>  
+                    <a id="register-btn" href="#" class="waves-effect waves-green btn-flat"><b>Register</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <!-- nav -->
+        <ul id="slide-out" class="sidenav">
+            <li><div class="user-view">
+                <div class="background bg-nav"></div>
+                    <a href="#"><span class="white-text email" id="email-menu-show">email</span></a>
+                </div>
+            </li>
+            <li><a id="logout" href="#"><b>Logout</b></a></li>
+        </ul>
+        <!-- add modal -->
+        <div id="add-modal" class="modal add-modal">
+            <div class="modal-content">
+                <h2>Add new task</h2>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">assignment_turned_in</i>
+                        <input id="text-task" type="text" class="validate">
+                        <label for="text-task">Your Task</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="back-add-btn" href="#" class="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>  
+                <a id="add-btn" href="#" class="modal-close waves-effect waves-green btn-flat"><b>Add</b></a>
+            </div>
+        </div>
+        <div class="menu z-depth-4">
+            <h1>ToDo App</h1>
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i id="menu-icon" class="material-icons">menu</i></a>
+        </div>
+        <div class="general">
+            <a id="add-modal-btn" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <ul id="tasks-overlay" class="collection with-header z-depth-4">
+                <li class="collection-header"><h2>Tasks</h2></li>
+                <div id="tasks"></div>
+            </ul>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAH3mfZ2wvCQV3UEBxjZRfvvlG9NcZ0DEU",
+            authDomain: "leszekkeu.firebaseapp.com",
+            databaseURL: "https://leszekkeu.firebaseio.com",
+            projectId: "leszekkeu",
+            storageBucket: "leszekkeu.appspot.com",
+            messagingSenderId: "842443282552",
+            appId: "1:842443282552:web:2c2a2b249f17543f"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+    </script>
+</body>

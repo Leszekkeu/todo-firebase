@@ -1,0 +1,71 @@
+body{
+    background-color: #F2F1F4;
+    margin: 0 !important;
+    font-family: 'Roboto', sans-serif;
+    cursor: default;
+}
+#container{
+    display: none;
+}
+.menu{
+    background-color: #6200ee;
+    padding: 10px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+@media only screen and (max-width: 490px){
+    .menu h1{
+        font-size: 40px;
+    }
+}
+.menu h1{
+    margin-top: 10px;
+
+}
+.general{
+    text-align: center;
+}
+#show-login-btn{
+    margin: 10px;
+    font-size: 20px;
+}
+.error{
+    color: #f44336;
+}
+.bg-nav{
+    background-color: #2196F3;
+}
+#menu-icon{
+    font-size: 50px;
+    color: #fff;
+    margin-right: 10px;
+    margin-top: 30px;
+}
+#email-menu-show{
+    font-size: 20px;
+}
+#tasks-overlay{
+    width: 70%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+@media only screen and (max-width: 700px){
+    #tasks-overlay{
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 650px){
+    #tasks-overlay{
+        width: 99%;
+    }
+}
+#add-modal-btn{
+    margin-top: 30px;
+}
+.checked
+{
+    text-decoration: line-through;
+}
