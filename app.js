@@ -178,3 +178,8 @@ $("#forgot-btn").click(function(){
         document.getElementById("forgot-err").innerHTML = "Error!";
     });
 })
+document.onkeyup = function(e) {
+    if(e.ctrlKey && e.which == 88){
+        $('.add-modal').modal('open');
+    }
+}
