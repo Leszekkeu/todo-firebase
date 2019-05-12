@@ -42,6 +42,15 @@ $(function(){
     $("#logout").click(function(){
         $('.sidenav').sidenav('close');
     })
+    if ($(window).width() < 700)
+    {
+        $("#text-task").removeAttr("autofocus");
+    }
+    $("#text-task").on('keypress',function(e) {
+        if(e.which == 13) {
+            $("#add-btn").click();
+        }
+    });
 })
 function resetregister(){
     document.getElementById("email-register").value = '';
