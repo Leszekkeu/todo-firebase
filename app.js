@@ -2,9 +2,18 @@ $(function(){
     $('.login').modal();
     $('.register').modal();
     $('.add-modal').modal();
+    $(".forgot-modal").modal();
+    $(".settings").modal();
 
     $("#show-login-btn").click(function(){
         $('.login').modal('open');
+    })
+    $("#close-settings").click(function(){
+        $('.settings').modal('close');
+        resetsettings();
+    })
+    $("#settings-btn").click(function(){
+        $('.settings').modal('open');
     })
     $("#add-modal-btn").click(function(){
         $('.add-modal').modal('open');
@@ -17,6 +26,14 @@ $(function(){
     $("#back-login-btn").click(function(){
         resetregister();
         $('.register').modal('close');
+        $('.login').modal('open');
+    })
+    $("#forgot-pass-show").click(function(){
+        $('.login').modal('close');
+        $('.forgot-modal').modal('open');
+    })
+    $("#back-forgot-btn").click(function(){
+        $('.forgot-modal').modal('close');
         $('.login').modal('open');
     })
     
@@ -37,6 +54,12 @@ function resetlogin(){
 }
 function resetadd(){
     document.getElementById("text-task").value = '';
+}
+function resetsettings(){
+    document.getElementById("email-new").value = '';
+    document.getElementById("password-new").value = '';
+    document.getElementById("password2-new").value = '';
+    document.getElementById("current-password-new").value = '';
 }
 // auth status changes
 auth.onAuthStateChanged(user => {
@@ -98,7 +121,7 @@ $("#logout").click(function(){
 })
 
 //login
-$(".login-btn").click(function(){
+$("#login-btn").click(function(){
     // get user info
     const emaillogin = document.getElementById("email-login").value;
     const passwordlogin = document.getElementById("password-login").value;
@@ -112,9 +135,17 @@ $(".login-btn").click(function(){
 //add
 $("#add-btn").click(function(){
     var taskinpt = document.getElementById("text-task").value;
-    $("#tasks").append('<li class="collection-item task"><div>' + taskinpt + '<a id="remove-btn" href="#" class="secondary-content remove-btn"><i class="material-icons">delete_forever</i></a></div></li>')
-    resetadd()
-    save()
+    if(taskinpt.length>0){
+        $("#tasks").append('<li class="collection-item task"><div>' + taskinpt + '<a id="remove-btn" href="#" class="secondary-content remove-btn"><i class="material-icons">delete_forever</i></a></div></li>');
+        $('.add-modal').modal('close');
+        document.getElementById("add-err").innerHTML = "";
+        resetadd();
+        save() ;
+    }
+    else{
+        document.getElementById("add-err").innerHTML = "Error!";
+    }
+
 })
 $("#back-add-btn").click(function(){
     resetadd()
@@ -125,3 +156,16 @@ function save(){
         task: elements
     })
 }
+//forgot
+$("#forgot-btn").click(function(){
+    var auth = firebase.auth();
+    var emailAddress = document.getElementById("email-forgot-pass").value;
+
+    auth.sendPasswordResetEmail(emailAddress).then(function() {
+        $("#forgot-btn").fadeOut();
+        $("#forgot-inpts").slideUp();
+        document.getElementById("forgot-err").innerHTML = "Sent!";
+    }).catch(function(error) {
+        document.getElementById("forgot-err").innerHTML = "Error!";
+    });
+})

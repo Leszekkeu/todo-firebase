@@ -1,5 +1,5 @@
 <head>
-    <title></title>
+    <title>ToDo App</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script defer src="app.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Leszekk.eu" />
+    <meta property="og:title" content="ToDo App" />
+    <meta property="og:description" content="This web application allows you to create your own task list, synchronized with the database." />
+    <meta name="description" content="This web application allows you to create your own task list, synchronized with the database." />
 </head>
 <body>
     <div id="first">
@@ -39,6 +44,7 @@
                     <p id="login-err" class="error"></p>
                 </div>
                 <div class="modal-footer">
+                    <a id="forgot-pass-show" href="#" class="waves-effect waves-green btn-flat"><b>forgot password</b></a>
                     <a id="show-register-btn" href="#" class="waves-effect waves-green btn-flat"><b>Register</b></a>
                     <a id="login-btn" href="#" class="waves-effect waves-green btn-flat"><b>Login</b></a>
                 </div>
@@ -76,6 +82,24 @@
                     <a id="register-btn" href="#" class="waves-effect waves-green btn-flat"><b>Register</b></a>
                 </div>
             </div>
+            <!-- forgot-pass modal -->
+            <div id="forgot-modal" class="modal forgot-modal">
+                <div class="modal-content">
+                    <h2>Forgot Password?</h2>
+                    <div id="forgot-inpts" class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email-forgot-pass" type="text" class="validate">
+                            <label for="email-forgot-pass">Your E-Mail</label>
+                        </div>
+                    </div>
+                    <p id="forgot-err" class="error"></p>
+                </div>
+                <div class="modal-footer">
+                    <a id="back-forgot-btn" href="#" class="waves-effect waves-green btn-flat"><b>Back</b></a>  
+                    <a id="forgot-btn" href="#" class="waves-effect waves-green btn-flat"><b>Send</b></a>
+                </div>
+            </div>
         </div>
     </div>
     <div id="container">
@@ -83,10 +107,12 @@
         <ul id="slide-out" class="sidenav">
             <li><div class="user-view">
                 <div class="background bg-nav"></div>
-                    <a href="#"><span class="white-text email" id="email-menu-show">email</span></a>
+                    <a><span class="white-text email" id="email-menu-show">email</span></a>
                 </div>
             </li>
             <li><a id="logout" href="#"><b>Logout</b></a></li>
+            <li><div class="divider"></div></li>
+            <li><a>Created by Leszekk.eu</a></li>
         </ul>
         <!-- add modal -->
         <div id="add-modal" class="modal add-modal">
@@ -99,16 +125,19 @@
                         <label for="text-task">Your Task</label>
                     </div>
                 </div>
+                <p id="add-err" class="error"></p>
             </div>
             <div class="modal-footer">
                 <a id="back-add-btn" href="#" class="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>  
-                <a id="add-btn" href="#" class="modal-close waves-effect waves-green btn-flat"><b>Add</b></a>
+                <a id="add-btn" href="#" class="waves-effect waves-green btn-flat"><b>Add</b></a>
             </div>
         </div>
+        <!-- menu -->
         <div class="menu z-depth-4">
             <h1>ToDo App</h1>
             <a href="#" data-target="slide-out" class="sidenav-trigger"><i id="menu-icon" class="material-icons">menu</i></a>
         </div>
+        <!-- general -->
         <div class="general">
             <a id="add-modal-btn" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
             <ul id="tasks-overlay" class="collection with-header z-depth-4">
