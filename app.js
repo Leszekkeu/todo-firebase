@@ -4,6 +4,14 @@ $(function(){
     $('.add-modal').modal();
     $(".forgot-modal").modal();
     $(".settings").modal();
+    $('.datepicker').datepicker();
+    $('.timepicker').timepicker();
+    $('.datepicker').datepicker({
+        container: 'body',
+    });
+    $('.timepicker').timepicker({
+        container: 'body',
+    });
 
     $("#show-login-btn").click(function(){
         $('.login').modal('open');
@@ -63,6 +71,8 @@ function resetlogin(){
 }
 function resetadd(){
     document.getElementById("text-task").value = '';
+    document.getElementById("date-task").value = '';
+    document.getElementById("time-task").value = '';
 }
 function resetsettings(){
     document.getElementById("email-new").value = '';
@@ -144,17 +154,18 @@ $("#login-btn").click(function(){
 //add
 $("#add-btn").click(function(){
     var taskinpt = document.getElementById("text-task").value;
+    var dateinpt = document.getElementById("date-task").value;
+    var timeinpt = document.getElementById("time-task").value;
     if(taskinpt.length>0){
-        $("#tasks").append('<li class="collection-item task"><div>' + taskinpt + '<a id="remove-btn" href="#" class="secondary-content remove-btn"><i class="material-icons">delete_forever</i></a></div></li>');
+        $("#tasks").append('<li class="collection-item task"><div>' + taskinpt + '<a id="remove-btn" href="#" class="secondary-content remove-btn"><i class="material-icons">delete_forever</i></a></div><div class="date">' + dateinpt + ' ' + timeinpt + '</div></li>');
         $('.add-modal').modal('close');
         document.getElementById("add-err").innerHTML = "";
         resetadd();
-        save() ;
+        save();
     }
     else{
         document.getElementById("add-err").innerHTML = "Error!";
     }
-
 })
 $("#back-add-btn").click(function(){
     resetadd()
