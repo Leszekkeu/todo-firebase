@@ -94,3 +94,9 @@ body{
     margin-top: 6px;
     opacity: 0.9;
 }
+.datepicker-container{
+    margin-top: -5px;
+}
+.timepicker-modal{
+    margin-top: -22px;
+}
