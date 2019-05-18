@@ -3,25 +3,21 @@ $(function(){
     $('.register').modal();
     $('.add-modal').modal();
     $(".forgot-modal").modal();
-    $(".settings").modal();
     $('.datepicker').datepicker();
     $('.timepicker').timepicker();
     $('.datepicker').datepicker({
         container: 'body',
+        autoClose: true,
+        format: 'yyyy/mm/dd'
     });
     $('.timepicker').timepicker({
         container: 'body',
+        autoClose: true,
+        twelveHour: false
     });
 
     $("#show-login-btn").click(function(){
         $('.login').modal('open');
-    })
-    $("#close-settings").click(function(){
-        $('.settings').modal('close');
-        resetsettings();
-    })
-    $("#settings-btn").click(function(){
-        $('.settings').modal('open');
     })
     $("#add-modal-btn").click(function(){
         $('.add-modal').modal('open');
@@ -92,6 +88,7 @@ auth.onAuthStateChanged(user => {
         var data = snapshot.data();
         if(snapshot.exists){
             document.getElementById("tasks").innerHTML = data['task'];
+            $("#tasks li").sort(sort_li).appendTo('#tasks');
         }
         $(document).on("click", ".remove-btn", function() {
             $(this).parents('li').remove();
@@ -156,11 +153,15 @@ $("#add-btn").click(function(){
     var taskinpt = document.getElementById("text-task").value;
     var dateinpt = document.getElementById("date-task").value;
     var timeinpt = document.getElementById("time-task").value;
+    var dataattrval = dateinpt + timeinpt;
+    dataattrval = dataattrval.replace(/\//g, '');
+    dataattrval = dataattrval.replace(':', '');
     if(taskinpt.length>0){
-        $("#tasks").append('<li class="collection-item task"><div>' + taskinpt + '<a id="remove-btn" href="#" class="secondary-content remove-btn"><i class="material-icons">delete_forever</i></a></div><div class="date">' + dateinpt + ' ' + timeinpt + '</div></li>');
+        $("#tasks").append('<li data-position="'+ dataattrval + '" class="collection-item task"><div>' + taskinpt + '<a id="remove-btn" href="#" class="secondary-content remove-btn"><i class="material-icons">delete_forever</i></a></div><div class="date">' + dateinpt + ' ' + timeinpt + '</div></li>');
         $('.add-modal').modal('close');
         document.getElementById("add-err").innerHTML = "";
         resetadd();
+        $("#tasks li").sort(sort_li).appendTo('#tasks');
         save();
     }
     else{
@@ -193,4 +194,8 @@ document.onkeyup = function(e) {
     if(e.ctrlKey && e.which == 88){
         $('.add-modal').modal('open');
     }
+}
+//sort
+function sort_li(a, b) {
+    return ($(b).data('position')) < ($(a).data('position')) ? 1 : -1;
 }
